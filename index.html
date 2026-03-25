@@ -7,19 +7,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #0ea5e9;
-            --primary-dark: #0284c7;
-            --bg: #f1f5f9;
+            --bg-color: #f4f7f9;
             --surface: #ffffff;
-            --text: #0f172a;
+            --text-main: #0f172a;
             --text-muted: #64748b;
-            --border: #e2e8f0;
-            --success: #10b981;
-            --success-bg: #d1fae5;
-            --warning: #f59e0b;
-            --warning-bg: #fef3c7;
-            --danger: #ef4444;
-            --danger-bg: #fee2e2;
+            --border-color: #e2e8f0;
+            --primary-purple: #6b46c1;
+            --primary-purple-hover: #553c9a;
+            
+            /* Badge Colors */
+            --badge-blue-bg: #e0e7ff;
+            --badge-blue-text: #3730a3;
+            --badge-yellow-bg: #fef3c7;
+            --badge-yellow-text: #b45309;
+            --badge-gray-bg: #f1f5f9;
+            --badge-gray-text: #475569;
+            --badge-red-bg: #fee2e2;
+            --badge-red-text: #b91c1c;
+            --badge-green-bg: #d1fae5;
+            --badge-green-text: #047857;
         }
 
         * {
@@ -30,80 +36,15 @@
         }
 
         body {
-            background-color: var(--bg);
-            color: var(--text);
+            background-color: var(--bg-color);
+            color: var(--text-main);
             -webkit-tap-highlight-color: transparent;
-        }
-
-        /* Header */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 20px;
-            background-color: var(--surface);
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-        }
-
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        h1 {
-            font-size: 1.25rem;
-            font-weight: 700;
-        }
-
-        .btn {
-            padding: 0 16px;
-            border-radius: 8px;
-            border: none;
-            font-weight: 600;
-            font-size: 0.875rem;
-            cursor: pointer;
-            min-height: 44px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            transition: background-color 0.2s;
-        }
-
-        .btn-primary {
-            background-color: var(--primary);
-            color: white;
-        }
-
-        .btn-primary:active {
-            background-color: var(--primary-dark);
-        }
-
-        .btn-icon {
-            background: transparent;
-            border: none;
-            color: var(--text);
-            min-height: 44px;
-            min-width: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            border-radius: 50%;
-        }
-        
-        .btn-icon:active {
-            background-color: var(--bg);
+            padding: 24px;
         }
 
         /* Views */
         .view {
             display: none;
-            padding: 20px;
             max-width: 1200px;
             margin: 0 auto;
             animation: fadeIn 0.3s ease;
@@ -118,11 +59,24 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Home Cards */
+        /* Home View Specifics */
+        .home-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .home-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
         .home-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 20px;
+            gap: 24px;
         }
 
         @media(min-width: 768px) {
@@ -133,12 +87,12 @@
 
         .module-card {
             background-color: var(--surface);
-            border-radius: 16px;
-            padding: 32px 24px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
-            cursor: pointer;
-            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 40px 24px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
             text-align: center;
+            cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
         }
 
@@ -149,152 +103,225 @@
         .module-icon {
             width: 64px;
             height: 64px;
-            background-color: var(--bg);
+            background-color: var(--badge-blue-bg);
             border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 16px auto;
-            color: var(--primary);
+            margin: 0 auto 20px auto;
+            color: var(--badge-blue-text);
         }
 
         .module-card h2 {
             font-size: 1.5rem;
             font-weight: 700;
-            color: var(--text);
         }
 
-        /* Listing Navigation */
-        .category-tabs {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 20px;
-            background-color: var(--surface);
-            padding: 8px;
-            border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .category-tab {
-            flex: 1;
-            padding: 12px 20px;
-            border-radius: 8px;
-            border: none;
-            background: transparent;
+        /* Listing View UI */
+        .breadcrumbs {
+            font-size: 14px;
             color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .breadcrumbs strong {
+            color: var(--text-main);
             font-weight: 600;
-            font-size: 1rem;
+        }
+
+        .btn-back {
+            background: var(--surface);
+            border: 1px solid var(--border-color);
+            padding: 6px 16px;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-main);
             cursor: pointer;
-            min-height: 44px;
-            white-space: nowrap;
-            transition: all 0.2s;
-        }
-
-        .category-tab.active {
-            background-color: var(--primary);
-            color: white;
-        }
-
-        .status-tabs {
-            display: flex;
-            gap: 24px;
             margin-bottom: 24px;
-            border-bottom: 2px solid var(--border);
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
+            transition: background 0.2s;
         }
 
-        .status-tab {
-            padding: 12px 4px;
-            background: transparent;
-            border: none;
-            border-bottom: 3px solid transparent;
-            color: var(--text-muted);
-            font-weight: 600;
-            font-size: 0.95rem;
-            cursor: pointer;
-            min-height: 44px;
-            white-space: nowrap;
-            margin-bottom: -2px;
-            transition: all 0.2s;
+        .btn-back:active {
+            background: var(--bg-color);
         }
 
-        .status-tab.active {
-            border-bottom-color: var(--primary);
-            color: var(--primary);
-        }
-
-        /* Record Cards */
-        .listing-grid {
-            display: grid;
-            grid-template-columns: 1fr;
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
             gap: 16px;
         }
 
+        .page-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .btn-sync {
+            background-color: var(--primary-purple);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-sync:active {
+            background-color: var(--primary-purple-hover);
+        }
+
+        /* Categories (Pills) */
+        .category-pills {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .pill {
+            background: var(--surface);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .pill.active {
+            background: var(--text-main);
+            color: var(--surface);
+            border-color: var(--text-main);
+        }
+
+        /* Tabs (Underline style) */
+        .tabs {
+            display: flex;
+            gap: 24px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 32px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .tab {
+            padding: 8px 4px;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid transparent;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            white-space: nowrap;
+            margin-bottom: -1px;
+            transition: all 0.2s;
+        }
+
+        .tab.active {
+            color: var(--text-main);
+            border-bottom-color: var(--text-main);
+        }
+
+        /* Card Grid */
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+
         @media(min-width: 768px) {
-            .listing-grid {
+            .card-grid {
                 grid-template-columns: 1fr 1fr;
             }
         }
 
-        .record-card {
-            background-color: var(--surface);
+        /* Individual Card */
+        .card {
+            background: var(--surface);
             border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            border: 1px solid var(--border);
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
-            gap: 12px;
         }
 
-        .record-header {
+        .card-header {
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 12px;
-        }
-
-        .record-title {
-            font-size: 1.125rem;
-            font-weight: 600;
-            line-height: 1.4;
-        }
-
-        .record-number {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.875rem;
-            color: var(--text-muted);
-            background-color: var(--bg);
-            padding: 4px 8px;
-            border-radius: 6px;
-            display: inline-block;
+            justify-content: flex-end;
+            align-items: center;
+            margin-bottom: 12px;
         }
 
         .badge {
-            display: inline-flex;
-            align-items: center;
-            padding: 4px 10px;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: lowercase;
         }
 
-        .badge.pending { background-color: var(--warning-bg); color: var(--warning); }
-        .badge.passed { background-color: var(--success-bg); color: var(--success); }
-        .badge.failed { background-color: var(--danger-bg); color: var(--danger); }
+        .badge.pending { background: var(--badge-blue-bg); color: var(--badge-blue-text); }
+        .badge.passed { background: var(--badge-green-bg); color: var(--badge-green-text); }
+        .badge.failed { background: var(--badge-red-bg); color: var(--badge-red-text); }
 
-        /* Toast Notification */
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .card-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px 12px;
+            font-size: 14px;
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .detail-value {
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* Toast */
         #toast {
             position: fixed;
             bottom: 24px;
             left: 50%;
             transform: translateX(-50%) translateY(100px);
-            background-color: var(--text);
+            background-color: var(--text-main);
             color: white;
             padding: 12px 24px;
             border-radius: 8px;
@@ -310,43 +337,35 @@
         #toast.show {
             transform: translateX(-50%) translateY(0);
         }
-        
+
         .empty-state {
-            text-align: center;
-            padding: 48px 20px;
-            color: var(--text-muted);
             grid-column: 1 / -1;
-        }
-        
-        .empty-state svg {
-            margin-bottom: 16px;
-            opacity: 0.5;
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+            background: var(--surface);
+            border-radius: 12px;
+            border: 1px dashed var(--border-color);
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="header-left">
-            <button id="backBtn" class="btn-icon" style="display: none;" onclick="goHome()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-            </button>
-            <h1 id="pageTitle">Home</h1>
-        </div>
-        <button class="btn btn-primary" onclick="syncToWeb()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21v-5h5"/></svg>
-            Sync to web
-        </button>
-    </header>
-
     <!-- Home View -->
     <main id="homeView" class="view active">
+        <div class="home-header">
+            <h1 class="home-title">Dashboard</h1>
+            <button class="btn-sync" onclick="syncToWeb()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21v-5h5"/></svg>
+                Sync
+            </button>
+        </div>
         <div class="home-grid">
-            <div class="module-card" onclick="openModule('Change Management')">
+            <div class="module-card" onclick="openModule('Change Requests')">
                 <div class="module-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></svg>
                 </div>
-                <h2>Change Management</h2>
+                <h2>Change Requests</h2>
             </div>
             <div class="module-card" onclick="openModule('Change Notice')">
                 <div class="module-icon">
@@ -359,19 +378,35 @@
 
     <!-- Listing View -->
     <main id="listingView" class="view">
-        <div class="category-tabs">
-            <button class="category-tab active" onclick="setCategory('Change Requests')">Change Requests</button>
-            <button class="category-tab" onclick="setCategory('My Authorizations')">My Authorizations</button>
+        <div class="breadcrumbs">
+            Home > <strong id="bcModule">Change Requests</strong>
         </div>
 
-        <div class="status-tabs">
-            <button class="status-tab active" onclick="setStatus('Pending')">Pending</button>
-            <button class="status-tab" onclick="setStatus('Passed')">Passed</button>
-            <button class="status-tab" onclick="setStatus('Failed')">Failed</button>
+        <button class="btn-back" onclick="goHome()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            Back
+        </button>
+
+        <div class="page-header">
+            <h1 class="page-title" id="pageTitle">Change Requests</h1>
+            <button class="btn-sync" onclick="syncToWeb()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21v-5h5"/></svg>
+                Sync
+            </button>
         </div>
 
-        <div id="recordsContainer" class="listing-grid">
-            <!-- Records will be injected here via JS -->
+        <div class="category-pills" id="categoryPills">
+            <!-- Injected via JS -->
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="setStatus('Pending')">Pending</button>
+            <button class="tab" onclick="setStatus('Passed')">Passed</button>
+            <button class="tab" onclick="setStatus('Failed')">Failed</button>
+        </div>
+
+        <div id="recordsContainer" class="card-grid">
+            <!-- Records injected via JS -->
         </div>
     </main>
 
@@ -381,31 +416,39 @@
     </div>
 
     <script>
-        // --- Mock Data ---
+        // --- Mock Data Generation ---
         const generateData = () => {
             const data = [];
-            const modules = ['Change Management', 'Change Notice'];
-            const categories = ['Change Requests', 'My Authorizations'];
+            const modules = ['Change Requests', 'Change Notice'];
             const statuses = ['Pending', 'Passed', 'Failed'];
-            
+            const types = ['Infrastructure', 'Software Release', 'Process Update', 'Security Patch'];
+
             let idCounter = 1000;
 
             modules.forEach(mod => {
+                const categories = mod === 'Change Requests' 
+                    ? ['Change Requests', 'My Authorizations'] 
+                    : ['Change Notices', 'My Authorizations'];
+
                 categories.forEach(cat => {
                     statuses.forEach(stat => {
-                        // Generate 2-4 records per combination
-                        const count = Math.floor(Math.random() * 3) + 2;
+                        const count = Math.floor(Math.random() * 3) + 2; // 2-4 records
                         for(let i=0; i<count; i++) {
-                            const prefix = mod === 'Change Management' ? 'CR' : 'CN';
+                            const prefix = mod === 'Change Requests' ? 'CR' : 'CN';
                             const num = `${prefix}-${idCounter++}`;
-                            const typeName = mod === 'Change Management' ? 'Change Request' : 'Change Notice';
                             
+                            // Randomize dates
+                            const startDay = Math.floor(Math.random() * 15) + 1;
+                            const endDay = startDay + Math.floor(Math.random() * 10) + 5;
+
                             data.push({
                                 id: num,
                                 module: mod,
                                 category: cat,
                                 status: stat,
-                                name: `${typeName} - ${stat} Update ${i+1}`
+                                name: `${types[Math.floor(Math.random()*types.length)]} ${prefix}`,
+                                creationDate: `2/${startDay}/2026`,
+                                targetDate: `2/${endDay}/2026`
                             });
                         }
                     });
@@ -418,76 +461,81 @@
 
         // --- State ---
         let currentModule = '';
-        let currentCategory = 'Change Requests';
+        let currentCategory = '';
         let currentStatus = 'Pending';
 
         // --- DOM Elements ---
         const homeView = document.getElementById('homeView');
         const listingView = document.getElementById('listingView');
-        const backBtn = document.getElementById('backBtn');
+        const bcModule = document.getElementById('bcModule');
         const pageTitle = document.getElementById('pageTitle');
         const recordsContainer = document.getElementById('recordsContainer');
+        const categoryPills = document.getElementById('categoryPills');
         const toast = document.getElementById('toast');
 
-        // --- Navigation Functions ---
+        // --- Navigation ---
         function goHome() {
             homeView.classList.add('active');
             listingView.classList.remove('active');
-            backBtn.style.display = 'none';
-            pageTitle.textContent = 'Home';
             window.scrollTo(0,0);
         }
 
         function openModule(moduleName) {
             currentModule = moduleName;
-            
-            // Reset filters to defaults when opening a module
-            currentCategory = 'Change Requests';
+            currentCategory = moduleName === 'Change Requests' ? 'Change Requests' : 'Change Notices';
             currentStatus = 'Pending';
-            updateTabUI();
+            
+            bcModule.textContent = currentModule;
+            pageTitle.textContent = currentCategory;
+            
+            // Update Category Pills dynamically based on module
+            if (moduleName === 'Change Requests') {
+                categoryPills.innerHTML = `
+                    <button class="pill active" onclick="setCategory('Change Requests')">Change Requests</button>
+                    <button class="pill" onclick="setCategory('My Authorizations')">My Authorizations</button>
+                `;
+            } else {
+                categoryPills.innerHTML = `
+                    <button class="pill active" onclick="setCategory('Change Notices')">Change Notices</button>
+                    <button class="pill" onclick="setCategory('My Authorizations')">My Authorizations</button>
+                `;
+            }
+            
+            updateUIState();
             
             homeView.classList.remove('active');
             listingView.classList.add('active');
-            backBtn.style.display = 'flex';
-            pageTitle.textContent = currentModule;
-            
-            renderRecords();
             window.scrollTo(0,0);
         }
 
         function setCategory(category) {
             currentCategory = category;
-            updateTabUI();
-            renderRecords();
+            pageTitle.textContent = currentCategory;
+            updateUIState();
         }
 
         function setStatus(status) {
             currentStatus = status;
-            updateTabUI();
+            updateUIState();
+        }
+
+        function updateUIState() {
+            // Update Pills
+            document.querySelectorAll('.pill').forEach(pill => {
+                if(pill.textContent === currentCategory) pill.classList.add('active');
+                else pill.classList.remove('active');
+            });
+
+            // Update Tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                if(tab.textContent === currentStatus) tab.classList.add('active');
+                else tab.classList.remove('active');
+            });
+
             renderRecords();
         }
 
-        function updateTabUI() {
-            // Update Category Tabs
-            document.querySelectorAll('.category-tab').forEach(tab => {
-                if(tab.textContent === currentCategory) {
-                    tab.classList.add('active');
-                } else {
-                    tab.classList.remove('active');
-                }
-            });
-
-            // Update Status Tabs
-            document.querySelectorAll('.status-tab').forEach(tab => {
-                if(tab.textContent === currentStatus) {
-                    tab.classList.add('active');
-                } else {
-                    tab.classList.remove('active');
-                }
-            });
-        }
-
-        // --- Render Functions ---
+        // --- Render ---
         function renderRecords() {
             const filtered = records.filter(r => 
                 r.module === currentModule && 
@@ -500,9 +548,7 @@
             if (filtered.length === 0) {
                 recordsContainer.innerHTML = `
                     <div class="empty-state">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/><path d="M9 16l2 2 4-4"/></svg>
-                        <h3>No records found</h3>
-                        <p>There are no ${currentStatus.toLowerCase()} records in this category.</p>
+                        <p>No ${currentStatus.toLowerCase()} records found in ${currentCategory}.</p>
                     </div>
                 `;
                 return;
@@ -510,17 +556,29 @@
 
             filtered.forEach(record => {
                 const card = document.createElement('div');
-                card.className = 'record-card';
+                card.className = 'card';
                 
                 const badgeClass = record.status.toLowerCase();
+                const typeLabel = currentModule === 'Change Requests' ? 'Change Request' : 'Change Notice';
                 
                 card.innerHTML = `
-                    <div class="record-header">
-                        <h3 class="record-title">${record.name}</h3>
+                    <div class="card-header">
                         <span class="badge ${badgeClass}">${record.status}</span>
                     </div>
-                    <div>
-                        <span class="record-number">${record.id}</span>
+                    <h3 class="card-title">${record.name}</h3>
+                    <div class="card-details">
+                        <div class="detail-item">
+                            <span class="detail-label">${typeLabel} Number:</span>
+                            <span class="detail-value">${record.id}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Creation Date:</span>
+                            <span class="detail-value">${record.creationDate}</span>
+                        </div>
+                        <div class="detail-item" style="grid-column: 1 / -1;">
+                            <span class="detail-label">Target Implementation Date:</span>
+                            <span class="detail-value">${record.targetDate}</span>
+                        </div>
                     </div>
                 `;
                 
@@ -530,13 +588,8 @@
 
         // --- Actions ---
         function syncToWeb() {
-            const btn = document.querySelector('header .btn-primary');
-            const originalText = btn.innerHTML;
+            const btns = document.querySelectorAll('.btn-sync');
             
-            // Loading state
-            btn.innerHTML = `<svg class="spin" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px; animation: spin 1s linear infinite;"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> Syncing...`;
-            btn.disabled = true;
-
             // Add spin animation dynamically if not present
             if (!document.getElementById('spin-style')) {
                 const style = document.createElement('style');
@@ -545,10 +598,19 @@
                 document.head.appendChild(style);
             }
 
-            // Simulate network request
+            btns.forEach(btn => {
+                btn.dataset.original = btn.innerHTML;
+                btn.innerHTML = `<svg class="spin" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation: spin 1s linear infinite;"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> Syncing...`;
+                btn.disabled = true;
+                btn.style.opacity = '0.8';
+            });
+
             setTimeout(() => {
-                btn.innerHTML = originalText;
-                btn.disabled = false;
+                btns.forEach(btn => {
+                    btn.innerHTML = btn.dataset.original;
+                    btn.disabled = false;
+                    btn.style.opacity = '1';
+                });
                 showToast('Data synced to web successfully');
             }, 1500);
         }

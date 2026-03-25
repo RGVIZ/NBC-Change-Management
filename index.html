@@ -14,6 +14,9 @@
             --border-color: #e2e8f0;
             --primary-purple: #6b46c1;
             --primary-purple-hover: #553c9a;
+            --primary-blue: #2563eb;
+            --primary-blue-hover: #1d4ed8;
+            --light-blue-bg: #f8fafc;
             
             /* Badge Colors */
             --badge-blue-bg: #e0e7ff;
@@ -26,6 +29,9 @@
             --badge-red-text: #b91c1c;
             --badge-green-bg: #d1fae5;
             --badge-green-text: #047857;
+            
+            /* Specific UI Colors from Image */
+            --header-blue: #0ea5e9;
         }
 
         * {
@@ -263,6 +269,13 @@
             border: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transform: translateY(-2px);
         }
 
         .card-header {
@@ -277,12 +290,14 @@
             border-radius: 12px;
             font-size: 12px;
             font-weight: 600;
-            text-transform: lowercase;
         }
 
         .badge.pending { background: var(--badge-blue-bg); color: var(--badge-blue-text); }
+        .badge.warning { background: var(--badge-yellow-bg); color: var(--badge-yellow-text); }
         .badge.passed { background: var(--badge-green-bg); color: var(--badge-green-text); }
         .badge.failed { background: var(--badge-red-bg); color: var(--badge-red-text); }
+        .badge.solid-blue { background: var(--header-blue); color: white; border-radius: 4px; }
+        .badge.gray-solid { background: #9ca3af; color: white; }
 
         .card-title {
             font-size: 18px;
@@ -313,6 +328,230 @@
         .detail-value {
             color: var(--text-muted);
             line-height: 1.4;
+        }
+
+        /* --- Details View UI --- */
+        .details-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+        
+        .status-history {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--primary-purple);
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .status-display {
+            font-weight: 600;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-card {
+            background: var(--surface);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+
+        .section-header {
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-title {
+            color: var(--header-blue);
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .btn-outline {
+            border: 1px solid var(--header-blue);
+            color: var(--header-blue);
+            background: transparent;
+            padding: 6px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-outline:hover {
+            background: var(--badge-blue-bg);
+        }
+
+        .btn-solid-blue {
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .btn-solid-blue:hover {
+            background: var(--primary-blue-hover);
+        }
+
+        .btn-sign {
+            color: #16a34a;
+            background: transparent;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+        
+        .btn-sign:hover {
+            color: #15803d;
+        }
+
+        /* Collapsed State */
+        .collapsed-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 24px;
+        }
+
+        /* Expanded State */
+        .expanded-content {
+            display: none;
+            padding: 24px;
+            background: var(--bg-color);
+        }
+
+        .expanded-top-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        @media(min-width: 1024px) {
+            .expanded-top-grid {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+
+        .inner-card {
+            background: var(--surface);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .inner-card-header {
+            background: var(--light-blue-bg);
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--header-blue);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .inner-card-body {
+            padding: 16px;
+        }
+
+        .basic-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px 24px;
+        }
+
+        .info-row {
+            display: flex;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: var(--text-main);
+            width: 140px;
+            flex-shrink: 0;
+        }
+
+        .info-value {
+            color: var(--text-main);
+        }
+
+        /* Tables */
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background: var(--light-blue-bg);
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .empty-table {
+            text-align: center;
+            padding: 24px;
+            color: var(--text-muted);
+        }
+
+        /* Signature Section */
+        .signature-level {
+            padding: 0 24px 24px 24px;
+        }
+
+        .level-title {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-main);
+        }
+
+        .signature-box {
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            width: 200px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--surface);
+        }
+        
+        .signature-box svg {
+            width: 150px;
+            height: 40px;
         }
 
         /* Toast */
@@ -346,6 +585,110 @@
             background: var(--surface);
             border-radius: 12px;
             border: 1px dashed var(--border-color);
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-content {
+            background: var(--surface);
+            width: 100%;
+            max-width: 900px;
+            border-radius: 8px;
+            max-height: 95vh;
+            overflow-y: auto;
+            position: relative;
+            padding: 32px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .modal-close {
+            position: absolute;
+            top: 16px; right: 16px;
+            background: transparent;
+            border: 1px solid #ef4444;
+            color: #ef4444;
+            border-radius: 50%;
+            width: 28px; height: 28px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .modal-close:hover { background: #fee2e2; }
+        .form-group { margin-bottom: 24px; }
+        .form-label { display: block; font-weight: 600; margin-bottom: 8px; color: var(--text-main); font-size: 14px; }
+        .form-control { width: 100%; padding: 10px 12px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 14px; outline: none; }
+        .form-control:focus { border-color: var(--header-blue); }
+        
+        .toggle-group { display: flex; border: 1px solid var(--border-color); border-radius: 4px; overflow: hidden; width: fit-content; }
+        .toggle-btn { padding: 8px 24px; border: none; background: white; cursor: pointer; font-weight: 600; color: var(--text-muted); font-size: 14px; transition: all 0.2s; }
+        .toggle-btn.active { background: var(--header-blue); color: white; }
+        
+        .rich-text-editor { border: 1px solid var(--border-color); border-radius: 4px; overflow: hidden; }
+        .rich-text-toolbar { border-bottom: 1px solid var(--border-color); padding: 8px 12px; display: flex; gap: 16px; align-items: center; background: #f8fafc; font-size: 13px; color: var(--text-muted); flex-wrap: wrap; }
+        .rt-icon { cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .rich-text-editor textarea { border: none; outline: none; resize: vertical; width: 100%; padding: 12px; font-size: 14px; min-height: 150px; }
+        
+        .accordion-box { border: 1px solid var(--border-color); border-radius: 4px; margin-bottom: 24px; padding: 12px 16px; color: var(--header-blue); font-weight: 600; display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px; }
+        
+        .file-upload-box { border: 1px solid var(--border-color); border-radius: 4px; padding: 40px; text-align: center; margin-bottom: 24px; display: flex; align-items: center; justify-content: center; gap: 12px; color: var(--text-main); font-size: 14px; background: #fcfcfc; }
+        .upload-circle { width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--text-muted); display: flex; align-items: center; justify-content: center; color: var(--text-muted); }
+        
+        .sig-box-container { width: 300px; }
+        .sig-box { border: 1px solid var(--text-main); border-radius: 4px; height: 100px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; background: white; }
+        .sig-actions { display: flex; gap: 8px; margin-top: 12px; }
+        .sig-btn { width: 36px; height: 36px; border-radius: 4px; border: none; color: white; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .sig-btn.orange { background: #f97316; }
+        .sig-btn.green { background: #22c55e; }
+        .sig-btn.blue { background: #0ea5e9; }
+        .sig-btn.red { background: #ef4444; }
+        
+        .modal-footer { border-top: 1px solid var(--border-color); padding-top: 24px; display: flex; justify-content: flex-end; gap: 12px; margin-top: 32px; }
+
+        /* --- Mobile Responsiveness --- */
+        @media (max-width: 767px) {
+            body { padding: 16px; }
+            
+            /* Headers & Actions */
+            .home-header, .page-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+            .home-header .btn-sync, .page-header .btn-sync { width: 100%; justify-content: center; }
+            .details-header-actions { width: 100%; flex-direction: column; align-items: flex-start; gap: 12px; }
+            
+            /* Section Headers */
+            .section-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+            .section-header button { width: 100%; justify-content: center; }
+            
+            /* Details Grid */
+            .collapsed-grid { grid-template-columns: 1fr; gap: 16px; }
+            .basic-info-grid { grid-template-columns: 1fr !important; }
+            .info-row { flex-direction: column; gap: 4px; }
+            .info-label { width: 100% !important; color: var(--text-muted); font-size: 13px; margin-right: 0 !important; }
+            
+            /* Tables */
+            .signature-level { padding: 0 16px 16px 16px; }
+            th, td { padding: 10px 12px; font-size: 13px; }
+            
+            /* Modal (Bottom Sheet Style) */
+            .modal-overlay { padding: 16px 0 0 0; align-items: flex-end; }
+            .modal-content { 
+                padding: 24px 16px; 
+                max-height: 90vh; 
+                border-radius: 16px 16px 0 0;
+            }
+            .toggle-group { width: 100%; }
+            .toggle-btn { flex: 1; padding: 10px 8px; }
+            .file-upload-box { flex-direction: column; padding: 24px 16px; text-align: center; }
+            .sig-box-container { width: 100%; }
+            .modal-footer { flex-direction: column; gap: 12px; }
+            .modal-footer button { width: 100%; justify-content: center; }
         }
     </style>
 </head>
@@ -399,14 +742,191 @@
             <!-- Injected via JS -->
         </div>
 
-        <div class="tabs">
-            <button class="tab active" onclick="setStatus('Pending')">Pending</button>
-            <button class="tab" onclick="setStatus('Passed')">Passed</button>
-            <button class="tab" onclick="setStatus('Failed')">Failed</button>
+        <div class="tabs" id="tabsContainer">
+            <!-- Injected via JS -->
         </div>
 
         <div id="recordsContainer" class="card-grid">
             <!-- Records injected via JS -->
+        </div>
+    </main>
+
+    <!-- Details View -->
+    <main id="detailsView" class="view">
+        <div class="breadcrumbs">
+            Home > <span id="bcModuleDetails" style="cursor:pointer;" onclick="goToListing()">Change Requests</span> > <strong id="bcRecordId">CR-2025-01701</strong>
+        </div>
+
+        <button class="btn-back" onclick="goToListing()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            Back
+        </button>
+
+        <div class="page-header">
+            <h1 class="page-title" id="detailsPageTitle">Change Request</h1>
+            <div class="details-header-actions">
+                <div class="status-history">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg>
+                    Status History
+                </div>
+                <div class="status-display">
+                    Status: <span class="badge solid-blue" id="detailsStatusBadge">Accepted</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1: Details -->
+        <div class="section-card">
+            <div class="section-header">
+                <span class="section-title">Details</span>
+                <button class="btn-outline" id="toggleDetailsBtn" onclick="toggleDetails()">+ More Details</button>
+            </div>
+            
+            <!-- Collapsed State -->
+            <div id="collapsedDetails" class="collapsed-grid">
+                <div class="detail-item">
+                    <span class="detail-label">CR Number:</span>
+                    <span class="detail-value" id="colCrNumber">CR-2025-01701</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">CR Name:</span>
+                    <span class="detail-value" id="colCrName">Material Change for Gear Housing</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Initiator:</span>
+                    <span class="detail-value" id="colInitiator">Norman Hemmings</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Coordinator:</span>
+                    <span class="detail-value" id="colCoordinator">Norman Hemmings</span>
+                </div>
+            </div>
+
+            <!-- Expanded State -->
+            <div id="expandedDetails" class="expanded-content">
+                <div class="expanded-top-grid">
+                    <!-- Basic Information -->
+                    <div class="inner-card">
+                        <div class="inner-card-header">Basic Information</div>
+                        <div class="inner-card-body">
+                            <div class="basic-info-grid">
+                                <div class="info-row"><span class="info-label">CR Number:</span><span class="info-value" id="expCrNumber">CR-2025-01701</span></div>
+                                <div class="info-row"><span class="info-label">CR Name:</span><span class="info-value" id="expCrName">Material Change for Gear Housing</span></div>
+                                <div class="info-row"><span class="info-label">Part Number:</span><span class="info-value">T000000269</span></div>
+                                <div class="info-row"><span class="info-label">Part Name:</span><span class="info-value">(Gear Box Assm-12345)</span></div>
+                                <div class="info-row"><span class="info-label">Part Revision:</span><span class="info-value">-</span></div>
+                                <div class="info-row"><span class="info-label">Current Location:</span><span class="info-value">-</span></div>
+                                <div class="info-row"><span class="info-label">Current Plant:</span><span class="info-value">-</span></div>
+                                <div class="info-row"><span class="info-label">Proposed Location:</span><span class="info-value">-</span></div>
+                                <div class="info-row"><span class="info-label">Proposed Plant:</span><span class="info-value">-</span></div>
+                                <div class="info-row"><span class="info-label">Customer:</span><span class="info-value">NBC Bearing</span></div>
+                                <div class="info-row"><span class="info-label">Initiator:</span><span class="info-value" id="expInitiator">Norman Hemmings</span></div>
+                                <div class="info-row"><span class="info-label">Coordinator:</span><span class="info-value" id="expCoordinator">Norman Hemmings</span></div>
+                                <div class="info-row"><span class="info-label">Change Category:</span><span class="info-value">OEM/Customer Initiated</span></div>
+                                <div class="info-row"><span class="info-label">Creation Date:</span><span class="info-value" id="expCreationDate">16 Sep 2025</span></div>
+                                <div class="info-row"><span class="info-label">Target Implementation Date:</span><span class="info-value" id="expTargetDate">31 Dec 2025</span></div>
+                                <div class="info-row"><span class="info-label">Category Type:</span><span class="info-value">General</span></div>
+                                <div class="info-row"><span class="info-label">Change Reason:</span><span class="info-value">Material Change</span></div>
+                                <div class="info-row"><span class="info-label">Current Situation:</span><span class="info-value">-</span></div>
+                                <div class="info-row"><span class="info-label">Source Of Change:</span><span class="info-value">-</span></div>
+                                <div class="info-row"><span class="info-label">Comments:</span><span class="info-value">-</span></div>
+                                <div class="info-row" style="grid-column: 1 / -1;">
+                                    <span class="info-label">Proposed Change:</span>
+                                    <span class="info-value">Replacement of the material used for the Gear Housing component From: Aluminum Alloy 6061-T6 To: Aluminum Alloy 6082-T6. 6061-T6 alloy is being discontinued by the supplier, and 6082-T6 offers better...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Related Part Numbers -->
+                    <div class="inner-card">
+                        <div class="inner-card-header">Related Part Numbers</div>
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Part Number</th>
+                                        <th>Part Name</th>
+                                        <th>Part Revision</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="4" class="empty-table">No Related Parts found!</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Details -->
+                <div class="inner-card">
+                    <div class="inner-card-header">Additional Details</div>
+                    <div class="inner-card-body">
+                        <div class="basic-info-grid" style="grid-template-columns: repeat(3, 1fr);">
+                            <div class="info-row"><span class="info-label" style="width: auto; margin-right: 8px;">Is Commercial Impact?:</span><span class="info-value">NO</span></div>
+                            <div class="info-row"><span class="info-label" style="width: auto; margin-right: 8px;">Description:</span><span class="info-value">-</span></div>
+                            <div class="info-row"><span class="info-label" style="width: auto; margin-right: 8px;">Is Customer Impact?:</span><span class="info-value">NO</span></div>
+                            <div class="info-row" style="grid-column: 1 / -1;"><span class="info-label" style="width: auto; margin-right: 8px;">Description:</span><span class="info-value">-</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Signature -->
+        <div class="section-card">
+            <div class="section-header">
+                <span class="section-title">Signature</span>
+            </div>
+            
+            <!-- Level 1 -->
+            <div class="signature-level">
+                <div class="level-title">Level 1</div>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>User</th>
+                                <th>Role</th>
+                                <th>Status</th>
+                                <th>Sign Date</th>
+                                <th>Signature</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="sigLevel1Body">
+                            <!-- Injected via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Level 2 -->
+            <div class="signature-level">
+                <div class="level-title">Level 2</div>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>User</th>
+                                <th>Role</th>
+                                <th>Status</th>
+                                <th>Sign Date</th>
+                                <th>Signature</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="sigLevel2Body">
+                            <!-- Injected via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </main>
 
@@ -415,13 +935,121 @@
         <span id="toastMsg">Synced successfully</span>
     </div>
 
+    <!-- Sign Modal -->
+    <div id="signModalOverlay" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeSignModal()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            
+            <div class="form-group">
+                <label class="form-label">Review Authorization</label>
+                <input type="text" class="form-control" value="Review Authorization">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label"><span style="color:red">*</span></label>
+                <div class="toggle-group">
+                    <button id="btnPassed" class="toggle-btn active" onclick="toggleSignStatus('Passed')">Passed</button>
+                    <button id="btnNotPassed" class="toggle-btn" onclick="toggleSignStatus('Not Passed')">Not Passed</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Review Description <span id="descAsterisk" style="color:red; display:none;">*</span></label>
+                <div class="rich-text-editor">
+                    <div class="rich-text-toolbar">
+                        <span class="rt-icon">Normal <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:4px"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                        <span class="rt-icon">Sans Serif <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:4px"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                        <span class="rt-icon" style="font-weight:bold">B</span>
+                        <span class="rt-icon" style="font-style:italic; font-family:serif">I</span>
+                        <span class="rt-icon" style="text-decoration:underline">U</span>
+                        <span class="rt-icon" style="text-decoration:line-through">S</span>
+                        <span class="rt-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg></span>
+                        <span class="rt-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></span>
+                        <span class="rt-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg></span>
+                    </div>
+                    <textarea id="reviewDescription" placeholder=""></textarea>
+                </div>
+            </div>
+
+            <div class="accordion-box">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg> Checklist
+            </div>
+
+            <div class="file-upload-box">
+                <div class="upload-circle">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                </div>
+                <span>Drag and drop files to here to upload.</span>
+            </div>
+
+            <div class="sig-box-container">
+                <div class="sig-box">
+                    <svg viewBox="0 0 200 60" fill="none" stroke="#0f172a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M 40 40 Q 60 30 80 35 T 110 20 Q 120 10 115 25 T 100 40 Q 130 45 150 40" />
+                    </svg>
+                </div>
+                <input type="text" id="signerName" class="form-control" value="Norman Hemmings">
+                <div class="sig-actions">
+                    <button class="sig-btn orange"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></button>
+                    <button class="sig-btn green"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg></button>
+                    <button class="sig-btn blue"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></button>
+                    <button class="sig-btn red"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn-solid-blue" onclick="saveSignature()">Save</button>
+                <button class="btn-solid-blue" onclick="closeSignModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // --- Tab & Status Configuration ---
+        const tabConfig = {
+            'Change Requests': {
+                'Change Requests': {
+                    tabs: ['New', 'In Progress', 'Completed'],
+                    statusMap: {
+                        'New': ['Requested'],
+                        'In Progress': ['Acceptance Pending', 'Acknowledged'],
+                        'Completed': ['Accepted', 'Approved', 'Implemented']
+                    }
+                },
+                'My Authorizations': {
+                    tabs: ['New', 'Passed', 'Failed'],
+                    statusMap: {
+                        'New': ['New'],
+                        'Passed': ['Passed'],
+                        'Failed': ['Failed']
+                    }
+                }
+            },
+            'Change Notice': {
+                'Change Notices': {
+                    tabs: ['Pending', 'Passed', 'Failed'],
+                    statusMap: {
+                        'Pending': ['Pending'], 'Passed': ['Passed'], 'Failed': ['Failed']
+                    }
+                },
+                'My Authorizations': {
+                    tabs: ['Pending', 'Passed', 'Failed'],
+                    statusMap: {
+                        'Pending': ['Pending'], 'Passed': ['Passed'], 'Failed': ['Failed']
+                    }
+                }
+            }
+        };
+
         // --- Mock Data Generation ---
         const generateData = () => {
             const data = [];
             const modules = ['Change Requests', 'Change Notice'];
-            const statuses = ['Pending', 'Passed', 'Failed'];
             const types = ['Infrastructure', 'Software Release', 'Process Update', 'Security Patch'];
+            const names = ['Material Change for Gear Housing', 'Update Server OS', 'Revise QA Protocol', 'Patch Vulnerability CVE-2025'];
+            const initiators = ['Norman Hemmings', 'Jane Doe', 'John Smith', 'Peter Pan'];
 
             let idCounter = 1000;
 
@@ -431,24 +1059,34 @@
                     : ['Change Notices', 'My Authorizations'];
 
                 categories.forEach(cat => {
-                    statuses.forEach(stat => {
-                        const count = Math.floor(Math.random() * 3) + 2; // 2-4 records
+                    let statusesToGenerate = [];
+                    const config = tabConfig[mod][cat];
+                    Object.values(config.statusMap).forEach(statusArray => {
+                        statusesToGenerate.push(...statusArray);
+                    });
+
+                    statusesToGenerate.forEach(stat => {
+                        const count = Math.floor(Math.random() * 2) + 1; 
                         for(let i=0; i<count; i++) {
                             const prefix = mod === 'Change Requests' ? 'CR' : 'CN';
-                            const num = `${prefix}-${idCounter++}`;
+                            const num = `${prefix}-2025-${idCounter++}`;
                             
-                            // Randomize dates
                             const startDay = Math.floor(Math.random() * 15) + 1;
                             const endDay = startDay + Math.floor(Math.random() * 10) + 5;
+                            
+                            const randomName = names[Math.floor(Math.random()*names.length)];
+                            const randomInitiator = initiators[Math.floor(Math.random()*initiators.length)];
 
                             data.push({
                                 id: num,
                                 module: mod,
                                 category: cat,
                                 status: stat,
-                                name: `${types[Math.floor(Math.random()*types.length)]} ${prefix}`,
-                                creationDate: `2/${startDay}/2026`,
-                                targetDate: `2/${endDay}/2026`
+                                name: randomName,
+                                initiator: randomInitiator,
+                                coordinator: randomInitiator, // Keeping same for mock
+                                creationDate: `${startDay} Sep 2025`,
+                                targetDate: `${endDay} Dec 2025`
                             });
                         }
                     });
@@ -462,33 +1100,43 @@
         // --- State ---
         let currentModule = '';
         let currentCategory = '';
-        let currentStatus = 'Pending';
+        let currentTab = '';
+        let isDetailsExpanded = false;
 
         // --- DOM Elements ---
         const homeView = document.getElementById('homeView');
         const listingView = document.getElementById('listingView');
+        const detailsView = document.getElementById('detailsView');
+        
         const bcModule = document.getElementById('bcModule');
         const pageTitle = document.getElementById('pageTitle');
         const recordsContainer = document.getElementById('recordsContainer');
         const categoryPills = document.getElementById('categoryPills');
+        const tabsContainer = document.getElementById('tabsContainer');
         const toast = document.getElementById('toast');
 
         // --- Navigation ---
         function goHome() {
             homeView.classList.add('active');
             listingView.classList.remove('active');
+            detailsView.classList.remove('active');
+            window.scrollTo(0,0);
+        }
+
+        function goToListing() {
+            detailsView.classList.remove('active');
+            listingView.classList.add('active');
             window.scrollTo(0,0);
         }
 
         function openModule(moduleName) {
             currentModule = moduleName;
             currentCategory = moduleName === 'Change Requests' ? 'Change Requests' : 'Change Notices';
-            currentStatus = 'Pending';
+            currentTab = tabConfig[currentModule][currentCategory].tabs[0];
             
             bcModule.textContent = currentModule;
             pageTitle.textContent = currentCategory;
             
-            // Update Category Pills dynamically based on module
             if (moduleName === 'Change Requests') {
                 categoryPills.innerHTML = `
                     <button class="pill active" onclick="setCategory('Change Requests')">Change Requests</button>
@@ -511,36 +1159,53 @@
         function setCategory(category) {
             currentCategory = category;
             pageTitle.textContent = currentCategory;
+            currentTab = tabConfig[currentModule][currentCategory].tabs[0];
             updateUIState();
         }
 
-        function setStatus(status) {
-            currentStatus = status;
+        function setTab(tab) {
+            currentTab = tab;
             updateUIState();
         }
 
         function updateUIState() {
-            // Update Pills
             document.querySelectorAll('.pill').forEach(pill => {
                 if(pill.textContent === currentCategory) pill.classList.add('active');
                 else pill.classList.remove('active');
             });
 
-            // Update Tabs
-            document.querySelectorAll('.tab').forEach(tab => {
-                if(tab.textContent === currentStatus) tab.classList.add('active');
-                else tab.classList.remove('active');
+            const config = tabConfig[currentModule][currentCategory];
+            tabsContainer.innerHTML = '';
+            
+            config.tabs.forEach(tab => {
+                const btn = document.createElement('button');
+                btn.className = `tab ${tab === currentTab ? 'active' : ''}`;
+                btn.textContent = tab;
+                btn.onclick = () => setTab(tab);
+                tabsContainer.appendChild(btn);
             });
 
             renderRecords();
         }
 
-        // --- Render ---
+        function getBadgeClass(status) {
+            const s = status.toLowerCase();
+            if (['requested', 'new', 'pending'].includes(s)) return 'pending';
+            if (['acceptance pending', 'acknowledged'].includes(s)) return 'warning';
+            if (['accepted', 'approved', 'implemented', 'passed'].includes(s)) return 'passed';
+            if (['failed'].includes(s)) return 'failed';
+            return 'pending';
+        }
+
+        // --- Render Listing ---
         function renderRecords() {
+            const config = tabConfig[currentModule][currentCategory];
+            const allowedStatuses = config.statusMap[currentTab] || [];
+
             const filtered = records.filter(r => 
                 r.module === currentModule && 
                 r.category === currentCategory && 
-                r.status === currentStatus
+                allowedStatuses.includes(r.status)
             );
 
             recordsContainer.innerHTML = '';
@@ -548,7 +1213,7 @@
             if (filtered.length === 0) {
                 recordsContainer.innerHTML = `
                     <div class="empty-state">
-                        <p>No ${currentStatus.toLowerCase()} records found in ${currentCategory}.</p>
+                        <p>No records found in ${currentTab}.</p>
                     </div>
                 `;
                 return;
@@ -557,8 +1222,9 @@
             filtered.forEach(record => {
                 const card = document.createElement('div');
                 card.className = 'card';
+                card.onclick = () => openDetails(record.id);
                 
-                const badgeClass = record.status.toLowerCase();
+                const badgeClass = getBadgeClass(record.status);
                 const typeLabel = currentModule === 'Change Requests' ? 'Change Request' : 'Change Notice';
                 
                 card.innerHTML = `
@@ -586,11 +1252,191 @@
             });
         }
 
+        // --- Details View Logic ---
+        function openDetails(recordId) {
+            const record = records.find(r => r.id === recordId);
+            if(!record) return;
+
+            // Populate Header
+            document.getElementById('bcModuleDetails').textContent = currentModule;
+            document.getElementById('bcRecordId').textContent = record.id;
+            document.getElementById('detailsPageTitle').textContent = currentModule === 'Change Requests' ? 'Change Request' : 'Change Notice';
+            document.getElementById('detailsStatusBadge').textContent = record.status;
+
+            // Populate Collapsed Data
+            document.getElementById('colCrNumber').textContent = record.id;
+            document.getElementById('colCrName').textContent = record.name;
+            document.getElementById('colInitiator').textContent = record.initiator;
+            document.getElementById('colCoordinator').textContent = record.coordinator;
+
+            // Populate Expanded Data
+            document.getElementById('expCrNumber').textContent = record.id;
+            document.getElementById('expCrName').textContent = record.name;
+            document.getElementById('expInitiator').textContent = record.initiator;
+            document.getElementById('expCoordinator').textContent = record.coordinator;
+            document.getElementById('expCreationDate').textContent = record.creationDate;
+            document.getElementById('expTargetDate').textContent = record.targetDate;
+
+            // Render Signatures dynamically
+            renderSignatures(record);
+
+            // Reset expand state
+            isDetailsExpanded = false;
+            updateDetailsToggle();
+
+            // Switch view
+            listingView.classList.remove('active');
+            detailsView.classList.add('active');
+            window.scrollTo(0,0);
+        }
+
+        function toggleDetails() {
+            isDetailsExpanded = !isDetailsExpanded;
+            updateDetailsToggle();
+        }
+
+        function updateDetailsToggle() {
+            const btn = document.getElementById('toggleDetailsBtn');
+            const col = document.getElementById('collapsedDetails');
+            const exp = document.getElementById('expandedDetails');
+
+            if (isDetailsExpanded) {
+                btn.textContent = '- Less Details';
+                col.style.display = 'none';
+                exp.style.display = 'block';
+            } else {
+                btn.textContent = '+ More Details';
+                col.style.display = 'grid';
+                exp.style.display = 'none';
+            }
+        }
+
+        function renderSignatures(record) {
+            const sigLevel1Body = document.getElementById('sigLevel1Body');
+            const sigLevel2Body = document.getElementById('sigLevel2Body');
+
+            let l1State = 'New';
+            let l2State = 'New';
+
+            const inProgressStatuses = ['Acceptance Pending', 'Acknowledged'];
+            const completedStatuses = ['Accepted', 'Approved', 'Implemented', 'Passed'];
+            
+            if (inProgressStatuses.includes(record.status)) {
+                l1State = 'Passed';
+            } else if (completedStatuses.includes(record.status)) {
+                l1State = 'Passed';
+                l2State = 'Passed';
+            }
+
+            // Render Level 1
+            sigLevel1Body.innerHTML = `
+                <tr>
+                    <td>1</td>
+                    <td>${record.coordinator}</td>
+                    <td>Change Coordinator/Supervisor</td>
+                    <td><span class="badge ${l1State === 'Passed' ? 'passed' : 'gray-solid'}">${l1State}</span></td>
+                    <td>${l1State === 'Passed' ? record.creationDate : '-'}</td>
+                    <td>${l1State === 'Passed' ? getSignatureSVG() : 'Not signed'}</td>
+                    <td>${l1State === 'Passed' 
+                        ? '<button class="btn-solid-blue">History</button>' 
+                        : `<button class="btn-sign" onclick="openSignModal(1, '${record.id}')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg> Sign</button>`}
+                    </td>
+                </tr>
+            `;
+
+            // Render Level 2
+            let l2Action = '';
+            if (l2State === 'Passed') {
+                l2Action = '<button class="btn-solid-blue">History</button>';
+            } else if (l1State === 'Passed') {
+                l2Action = `<button class="btn-sign" onclick="openSignModal(2, '${record.id}')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg> Sign</button>`;
+            }
+
+            sigLevel2Body.innerHTML = `
+                <tr>
+                    <td>2</td>
+                    <td>${record.coordinator}</td>
+                    <td>Final Approver</td>
+                    <td><span class="badge ${l2State === 'Passed' ? 'passed' : 'gray-solid'}">${l2State}</span></td>
+                    <td>${l2State === 'Passed' ? record.creationDate : '-'}</td>
+                    <td>${l2State === 'Passed' ? getSignatureSVG() : 'Not signed'}</td>
+                    <td>${l2Action}</td>
+                </tr>
+            `;
+        }
+
+        function getSignatureSVG() {
+            return `<div class="signature-box"><svg viewBox="0 0 200 60" fill="none" stroke="#0f172a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M 40 40 Q 60 30 80 35 T 110 20 Q 120 10 115 25 T 100 40 Q 130 45 150 40" /></svg></div>`;
+        }
+
+        // --- Sign Modal Logic ---
+        let currentSignLevel = null;
+        let currentSignRecordId = null;
+        let currentSignStatus = 'Passed';
+
+        function openSignModal(level, recordId) {
+            currentSignLevel = level;
+            currentSignRecordId = recordId;
+            const record = records.find(r => r.id === recordId);
+            if(record) {
+                document.getElementById('signerName').value = record.coordinator;
+            }
+            document.getElementById('reviewDescription').value = '';
+            toggleSignStatus('Passed');
+            document.getElementById('signModalOverlay').classList.add('active');
+        }
+
+        function closeSignModal() {
+            document.getElementById('signModalOverlay').classList.remove('active');
+        }
+
+        function toggleSignStatus(status) {
+            currentSignStatus = status;
+            const btnPassed = document.getElementById('btnPassed');
+            const btnNotPassed = document.getElementById('btnNotPassed');
+            const descAsterisk = document.getElementById('descAsterisk');
+            
+            if (status === 'Passed') {
+                btnPassed.classList.add('active');
+                btnNotPassed.classList.remove('active');
+                descAsterisk.style.display = 'none';
+            } else {
+                btnPassed.classList.remove('active');
+                btnNotPassed.classList.add('active');
+                descAsterisk.style.display = 'inline';
+            }
+        }
+
+        function saveSignature() {
+            const desc = document.getElementById('reviewDescription').value.trim();
+            if (currentSignStatus === 'Not Passed' && desc === '') {
+                alert('Review Description is mandatory when status is "Not Passed".');
+                return;
+            }
+            
+            const record = records.find(r => r.id === currentSignRecordId);
+            if (!record) return;
+
+            if (currentSignStatus === 'Passed') {
+                if (currentSignLevel === 1) {
+                    record.status = 'Acceptance Pending'; // Moves to In Progress
+                } else if (currentSignLevel === 2) {
+                    record.status = 'Accepted'; // Moves to Completed
+                }
+            } else {
+                record.status = 'Failed'; // Mark as failed
+            }
+            
+            showToast(`Level ${currentSignLevel} signed successfully!`);
+            closeSignModal();
+            openDetails(currentSignRecordId); // Re-render details view
+            renderRecords(); // Update listing view in background
+        }
+
         // --- Actions ---
         function syncToWeb() {
             const btns = document.querySelectorAll('.btn-sync');
             
-            // Add spin animation dynamically if not present
             if (!document.getElementById('spin-style')) {
                 const style = document.createElement('style');
                 style.id = 'spin-style';

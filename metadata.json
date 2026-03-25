@@ -1,0 +1,5 @@
+{
+  "name": "Change Management Mobile",
+  "description": "A single-file mobile web app for Change Management and Change Request signoffs.",
+  "requestFramePermissions": []
+}

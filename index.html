@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Change Management App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0ea5e9;
+            --primary-dark: #0284c7;
+            --bg: #f1f5f9;
+            --surface: #ffffff;
+            --text: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --success-bg: #d1fae5;
+            --warning: #f59e0b;
+            --warning-bg: #fef3c7;
+            --danger: #ef4444;
+            --danger-bg: #fee2e2;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background-color: var(--surface);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        h1 {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .btn {
+            padding: 0 16px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:active {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-icon {
+            background: transparent;
+            border: none;
+            color: var(--text);
+            min-height: 44px;
+            min-width: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+        
+        .btn-icon:active {
+            background-color: var(--bg);
+        }
+
+        /* Views */
+        .view {
+            display: none;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .view.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Home Cards */
+        .home-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media(min-width: 768px) {
+            .home-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .module-card {
+            background-color: var(--surface);
+            border-radius: 16px;
+            padding: 32px 24px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+            cursor: pointer;
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .module-card:active {
+            transform: scale(0.98);
+        }
+
+        .module-icon {
+            width: 64px;
+            height: 64px;
+            background-color: var(--bg);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px auto;
+            color: var(--primary);
+        }
+
+        .module-card h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        /* Listing Navigation */
+        .category-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            background-color: var(--surface);
+            padding: 8px;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .category-tab {
+            flex: 1;
+            padding: 12px 20px;
+            border-radius: 8px;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            min-height: 44px;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .category-tab.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .status-tabs {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 24px;
+            border-bottom: 2px solid var(--border);
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .status-tab {
+            padding: 12px 4px;
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            min-height: 44px;
+            white-space: nowrap;
+            margin-bottom: -2px;
+            transition: all 0.2s;
+        }
+
+        .status-tab.active {
+            border-bottom-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Record Cards */
+        .listing-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        @media(min-width: 768px) {
+            .listing-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .record-card {
+            background-color: var(--surface);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .record-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .record-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .record-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            background-color: var(--bg);
+            padding: 4px 8px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .badge.pending { background-color: var(--warning-bg); color: var(--warning); }
+        .badge.passed { background-color: var(--success-bg); color: var(--success); }
+        .badge.failed { background-color: var(--danger-bg); color: var(--danger); }
+
+        /* Toast Notification */
+        #toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background-color: var(--text);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        #toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 48px 20px;
+            color: var(--text-muted);
+            grid-column: 1 / -1;
+        }
+        
+        .empty-state svg {
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-left">
+            <button id="backBtn" class="btn-icon" style="display: none;" onclick="goHome()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+            <h1 id="pageTitle">Home</h1>
+        </div>
+        <button class="btn btn-primary" onclick="syncToWeb()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21v-5h5"/></svg>
+            Sync to web
+        </button>
+    </header>
+
+    <!-- Home View -->
+    <main id="homeView" class="view active">
+        <div class="home-grid">
+            <div class="module-card" onclick="openModule('Change Management')">
+                <div class="module-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></svg>
+                </div>
+                <h2>Change Management</h2>
+            </div>
+            <div class="module-card" onclick="openModule('Change Notice')">
+                <div class="module-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
+                </div>
+                <h2>Change Notice</h2>
+            </div>
+        </div>
+    </main>
+
+    <!-- Listing View -->
+    <main id="listingView" class="view">
+        <div class="category-tabs">
+            <button class="category-tab active" onclick="setCategory('Change Requests')">Change Requests</button>
+            <button class="category-tab" onclick="setCategory('My Authorizations')">My Authorizations</button>
+        </div>
+
+        <div class="status-tabs">
+            <button class="status-tab active" onclick="setStatus('Pending')">Pending</button>
+            <button class="status-tab" onclick="setStatus('Passed')">Passed</button>
+            <button class="status-tab" onclick="setStatus('Failed')">Failed</button>
+        </div>
+
+        <div id="recordsContainer" class="listing-grid">
+            <!-- Records will be injected here via JS -->
+        </div>
+    </main>
+
+    <div id="toast">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+        <span id="toastMsg">Synced successfully</span>
+    </div>
+
+    <script>
+        // --- Mock Data ---
+        const generateData = () => {
+            const data = [];
+            const modules = ['Change Management', 'Change Notice'];
+            const categories = ['Change Requests', 'My Authorizations'];
+            const statuses = ['Pending', 'Passed', 'Failed'];
+            
+            let idCounter = 1000;
+
+            modules.forEach(mod => {
+                categories.forEach(cat => {
+                    statuses.forEach(stat => {
+                        // Generate 2-4 records per combination
+                        const count = Math.floor(Math.random() * 3) + 2;
+                        for(let i=0; i<count; i++) {
+                            const prefix = mod === 'Change Management' ? 'CR' : 'CN';
+                            const num = `${prefix}-${idCounter++}`;
+                            const typeName = mod === 'Change Management' ? 'Change Request' : 'Change Notice';
+                            
+                            data.push({
+                                id: num,
+                                module: mod,
+                                category: cat,
+                                status: stat,
+                                name: `${typeName} - ${stat} Update ${i+1}`
+                            });
+                        }
+                    });
+                });
+            });
+            return data;
+        };
+
+        const records = generateData();
+
+        // --- State ---
+        let currentModule = '';
+        let currentCategory = 'Change Requests';
+        let currentStatus = 'Pending';
+
+        // --- DOM Elements ---
+        const homeView = document.getElementById('homeView');
+        const listingView = document.getElementById('listingView');
+        const backBtn = document.getElementById('backBtn');
+        const pageTitle = document.getElementById('pageTitle');
+        const recordsContainer = document.getElementById('recordsContainer');
+        const toast = document.getElementById('toast');
+
+        // --- Navigation Functions ---
+        function goHome() {
+            homeView.classList.add('active');
+            listingView.classList.remove('active');
+            backBtn.style.display = 'none';
+            pageTitle.textContent = 'Home';
+            window.scrollTo(0,0);
+        }
+
+        function openModule(moduleName) {
+            currentModule = moduleName;
+            
+            // Reset filters to defaults when opening a module
+            currentCategory = 'Change Requests';
+            currentStatus = 'Pending';
+            updateTabUI();
+            
+            homeView.classList.remove('active');
+            listingView.classList.add('active');
+            backBtn.style.display = 'flex';
+            pageTitle.textContent = currentModule;
+            
+            renderRecords();
+            window.scrollTo(0,0);
+        }
+
+        function setCategory(category) {
+            currentCategory = category;
+            updateTabUI();
+            renderRecords();
+        }
+
+        function setStatus(status) {
+            currentStatus = status;
+            updateTabUI();
+            renderRecords();
+        }
+
+        function updateTabUI() {
+            // Update Category Tabs
+            document.querySelectorAll('.category-tab').forEach(tab => {
+                if(tab.textContent === currentCategory) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+
+            // Update Status Tabs
+            document.querySelectorAll('.status-tab').forEach(tab => {
+                if(tab.textContent === currentStatus) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+        }
+
+        // --- Render Functions ---
+        function renderRecords() {
+            const filtered = records.filter(r => 
+                r.module === currentModule && 
+                r.category === currentCategory && 
+                r.status === currentStatus
+            );
+
+            recordsContainer.innerHTML = '';
+
+            if (filtered.length === 0) {
+                recordsContainer.innerHTML = `
+                    <div class="empty-state">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/><path d="M9 16l2 2 4-4"/></svg>
+                        <h3>No records found</h3>
+                        <p>There are no ${currentStatus.toLowerCase()} records in this category.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach(record => {
+                const card = document.createElement('div');
+                card.className = 'record-card';
+                
+                const badgeClass = record.status.toLowerCase();
+                
+                card.innerHTML = `
+                    <div class="record-header">
+                        <h3 class="record-title">${record.name}</h3>
+                        <span class="badge ${badgeClass}">${record.status}</span>
+                    </div>
+                    <div>
+                        <span class="record-number">${record.id}</span>
+                    </div>
+                `;
+                
+                recordsContainer.appendChild(card);
+            });
+        }
+
+        // --- Actions ---
+        function syncToWeb() {
+            const btn = document.querySelector('header .btn-primary');
+            const originalText = btn.innerHTML;
+            
+            // Loading state
+            btn.innerHTML = `<svg class="spin" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px; animation: spin 1s linear infinite;"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> Syncing...`;
+            btn.disabled = true;
+
+            // Add spin animation dynamically if not present
+            if (!document.getElementById('spin-style')) {
+                const style = document.createElement('style');
+                style.id = 'spin-style';
+                style.innerHTML = `@keyframes spin { 100% { transform: rotate(360deg); } }`;
+                document.head.appendChild(style);
+            }
+
+            // Simulate network request
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                showToast('Data synced to web successfully');
+            }, 1500);
+        }
+
+        function showToast(message) {
+            document.getElementById('toastMsg').textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

@@ -877,7 +877,7 @@
         </div>
 
         <!-- Section 2: Signature -->
-        <div class="section-card">
+        <div class="section-card" id="signatureSection">
             <div class="section-header">
                 <span class="section-title">Signature</span>
             </div>
@@ -1280,8 +1280,20 @@
             // Render Signatures dynamically
             renderSignatures(record);
 
-            // Reset expand state
-            isDetailsExpanded = false;
+            // Handle View-Only mode for Change Requests and Change Notices categories
+            const isViewOnly = (currentModule === 'Change Requests' && currentCategory === 'Change Requests') || 
+                               (currentModule === 'Change Notice' && currentCategory === 'Change Notices');
+            
+            if (isViewOnly) {
+                isDetailsExpanded = true;
+                document.getElementById('signatureSection').style.display = 'none';
+                document.getElementById('toggleDetailsBtn').style.display = 'none';
+            } else {
+                isDetailsExpanded = false;
+                document.getElementById('signatureSection').style.display = 'block';
+                document.getElementById('toggleDetailsBtn').style.display = 'inline-block';
+            }
+            
             updateDetailsToggle();
 
             // Switch view
